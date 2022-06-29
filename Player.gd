@@ -25,3 +25,7 @@ func surface():
 		$HandArea/Deck.receive_mana(mana_index)
 		if mana_index == -1:
 			discard_pile_is_empty = true
+
+
+func _on_LoadButton_pressed():
+	load_mana()
