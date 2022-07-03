@@ -2,11 +2,13 @@ extends ColorRect
 
 export var contents = [0,0,0,0,0,0,0]
 
+# return color of mana if successfully load else -1
 func receive_mana(mana_index):
 	assert(mana_index <= self.contents.size())
 	if mana_index != -1:
 		self.contents[mana_index] += 1
-
+	return mana_index
+	
 func give_mana(mana_index):
 	print(str(mana_index))
 	if mana_index == -1:
