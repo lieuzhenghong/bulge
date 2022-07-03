@@ -12,7 +12,7 @@ config_version=4
 
 config/name="bulge"
 run/main_scene="res://TitleScreen.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/icon.png"
 
 [autoload]
 
