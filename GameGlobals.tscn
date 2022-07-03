@@ -3,7 +3,15 @@
 [ext_resource path="res://GameGlobals.gd" type="Script" id=1]
 [ext_resource path="res://Stack.gd" type="Script" id=2]
 [ext_resource path="res://Trigger.gd" type="Script" id=3]
-[ext_resource path="res://LoadTrigger.gd" type="Script" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends \"Trigger.gd\"
+
+func resolve():
+	#PlayerNode.getDrawPile.load
+	# emit signal
+	pass
+"
 
 [node name="GameGlobals" type="Node"]
 script = ExtResource( 1 )
@@ -15,4 +23,4 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="LoadTrigger" type="Node" parent="Trigger"]
-script = ExtResource( 4 )
+script = SubResource( 1 )

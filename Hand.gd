@@ -2,6 +2,7 @@ extends "res://Pile.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.contents = [0,0,0,0,0,0]
 	$GridContainer/RedManaButton.color = Color(1, 0, 0, 1)
 	$GridContainer/WhiteManaButton.color = Color(0.95, 0.95, 0.95, 1)
 	$GridContainer/GreenManaButton.color = Color(0, 1, 0, 1)

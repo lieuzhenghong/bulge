@@ -28,4 +28,6 @@ func surface():
 
 
 func _on_LoadButton_pressed():
+	print("LoadButton Pressed!!")
 	load_mana()
+
