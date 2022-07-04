@@ -1,6 +1,6 @@
 extends Node
 
-onready var globals = $Globals
+onready var globals = "/root/Globals"
 
 var contents = [0,0,0,0,0,0]
 

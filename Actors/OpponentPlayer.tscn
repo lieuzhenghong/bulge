@@ -1,3 +1,10 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="Node" type="Node"]
+[ext_resource path="res://Piles/Piles.gd" type="Script" id=1]
+
+[node name="OpponentPlayer" type="ColorRect"]
+margin_right = 1080.0
+margin_bottom = 1920.0
+
+[node name="Piles" type="Node" parent="."]
+script = ExtResource( 1 )

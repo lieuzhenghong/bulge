@@ -1,3 +1,3 @@
 extends Node
 
-const DECK_EMPTY = 1
+export var DECKPILE_EMPTY = 1

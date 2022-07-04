@@ -1,8 +1,8 @@
 extends Node
 
-onready var globals = $Globals
+onready var globals = "/root/Globals"
 
-var contents = [6,6,0,0,0,0]
+var contents = [3,3,3,3,3,3]
 
 func load():
 	var i = 0
