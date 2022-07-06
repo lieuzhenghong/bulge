@@ -1,9 +1,8 @@
+class_name LoadTrigger extends Trigger
 
+signal LoadTriggerResolved
 
-#signal load_resolved
-
-#func resolve():
-#	var mana = $HandArea/Hand.receive_mana($HandArea/Deck.give_random_mana())
-#	if mana == -1:
-#		return
-#	emit_signal("load_resolved", get_parent().name)
+func _init(actor, target):
+	self.type = "Load"
+	self.actor = actor
+	self.target = target
