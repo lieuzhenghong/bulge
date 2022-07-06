@@ -1,4 +1,4 @@
-extends Node
+extends Helpers
 
 onready var globals = "/root/Globals"
 
@@ -12,5 +12,10 @@ func load():
 		i += 1
 	return i
 	
-func str():
-	return PoolStringArray(contents).join("")
+func add(card_type):
+	assert(card_type <= contents.size())
+	contents[card_type] += 1
+
+# FIXME don't hardcode the label
+func _process(_delta):
+	$ActivePlayerDeckPileLabel.text = str(sum(contents))

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Piles/Piles.gd" type="Script" id=1]
-[ext_resource path="res://Actors/ActivePlayerDeckPile.gd" type="Script" id=2]
-[ext_resource path="res://Piles/HandPile.gd" type="Script" id=3]
+[ext_resource path="res://Piles/DeckPile.gd" type="Script" id=2]
+[ext_resource path="res://Actors/ActivePlayersHandPile.gd" type="Script" id=3]
 [ext_resource path="res://Piles/DiscardPile.gd" type="Script" id=4]
 [ext_resource path="res://addons/ridiculous_coding/GravityBold8.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://addons/ridiculous_coding/font.tres" type="DynamicFont" id=6]
@@ -62,6 +62,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
+[node name="ActivePlayerHandPileLabel" type="Label" parent="Piles/VBoxContainer/HandPile"]
+margin_top = 24.0
+margin_right = 1080.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 6 )
+text = "Wabbajack"
+align = 1
+valign = 1
+
 [node name="DiscardPile" type="ColorRect" parent="Piles/VBoxContainer"]
 margin_top = 202.0
 margin_right = 1080.0
@@ -70,6 +81,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.733333, 0.262745, 0.262745, 1 )
 script = ExtResource( 4 )
+
+[node name="ActivePlayerDiscardPileLabel" type="Label" parent="Piles/VBoxContainer/DiscardPile"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -493.0
+margin_top = -27.5
+margin_right = 465.0
+margin_bottom = 36.5
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 6 )
+text = "199"
+align = 1
+valign = 1
 
 [node name="GridContainer" type="GridContainer" parent="."]
 anchor_top = 0.5
@@ -108,3 +135,5 @@ margin_bottom = 412.0
 rect_min_size = Vector2( 400, 100 )
 custom_fonts/font = SubResource( 1 )
 text = "Strike!"
+
+[connection signal="pressed" from="GridContainer/LoadButton" to="Piles" method="_on_LoadButton_pressed"]

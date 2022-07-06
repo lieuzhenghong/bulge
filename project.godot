@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "Helpers",
+"language": "GDScript",
+"path": "res://Helpers.gd"
+}, {
+"base": "Node",
 "class": "Piles",
 "language": "GDScript",
 "path": "res://Piles/Piles.gd"
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://Triggers/Trigger.gd"
 } ]
 _global_script_class_icons={
+"Helpers": "",
 "Piles": "",
 "Stack": "",
 "Trigger": ""
