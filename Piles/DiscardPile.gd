@@ -3,6 +3,8 @@ extends Helpers
 onready var globals = "/root/Globals"
 
 var contents = [0,0,0,0,0,0]
+export(NodePath) var pile_label_path
+onready var label = get_node(pile_label_path)
 
 func add(card_type):
 	assert(card_type <= contents.size())
@@ -10,4 +12,4 @@ func add(card_type):
 
 # FIXME don't hardcode the label
 func _process(_delta):
-	$ActivePlayerDiscardPileLabel.text = str(sum(contents))
+	label.text = str(sum(contents))

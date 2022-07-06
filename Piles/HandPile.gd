@@ -1,4 +1,4 @@
-extends Node
+extends Helpers
 
 onready var globals = "/root/Globals"
 
