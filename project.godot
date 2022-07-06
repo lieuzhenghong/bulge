@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "Piles",
 "language": "GDScript",
 "path": "res://Piles/Piles.gd"
+}, {
+"base": "Node",
+"class": "Stack",
+"language": "GDScript",
+"path": "res://Triggers/Stack.gd"
+}, {
+"base": "Node",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://Triggers/Trigger.gd"
 } ]
 _global_script_class_icons={
-"Piles": ""
+"Piles": "",
+"Stack": "",
+"Trigger": ""
 }
 
 [application]
@@ -34,6 +46,10 @@ window/size/width=1080
 window/size/height=1920
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/ridiculous_coding/plugin.cfg" )
 
 [global]
 
