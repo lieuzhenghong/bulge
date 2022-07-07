@@ -1,18 +1,16 @@
 extends Node
 
+var turn = 1
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-export var turn = 1
-export var stack = []
+func _on_LoadButton_pressed():
+	# Push a LoadTrigger for player one onto the stack
+	Stack.push(LoadTrigger.new(
+		Globals.PLAYER_ONE_ID, 
+		Globals.PLAYER_ONE_ID)
+	)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+func _on_ResolveStack_pressed():
+	Stack.pop()
 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta):
+	$StackSizeLabel.text = "Stack Size: %s" % Stack.stack.size()
