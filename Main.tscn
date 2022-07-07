@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://addons/ridiculous_coding/font.tres" type="DynamicFont" id=2]
@@ -13,6 +13,8 @@
 [sub_resource type="DynamicFont" id=1]
 size = 60
 font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=2]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -29,19 +31,23 @@ margin_right = 1080.0
 margin_bottom = 1920.0
 color = Color( 0, 0.129412, 0.145098, 0.521569 )
 
-[node name="OpponentPiles" type="Node" parent="."]
+[node name="OpponentPlayer" type="Node" parent="."]
+
+[node name="OpponentPiles" type="Node" parent="OpponentPlayer"]
 script = ExtResource( 7 )
 deck_path = NodePath("VBoxContainer/DeckPile")
+hand_path = NodePath("VBoxContainer/HandPile")
+discard_pile_path = NodePath("VBoxContainer/DiscardPile")
 relevant_player = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OpponentPiles"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OpponentPlayer/OpponentPiles"]
 anchor_right = 1.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 1080, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DeckPile" type="ColorRect" parent="OpponentPiles/VBoxContainer"]
+[node name="DeckPile" type="ColorRect" parent="OpponentPlayer/OpponentPiles/VBoxContainer"]
 margin_right = 1080.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
@@ -50,7 +56,7 @@ color = Color( 0.733333, 0.262745, 0.262745, 1 )
 script = ExtResource( 4 )
 pile_label_path = NodePath("OpponentPlayerDeckPileLabel")
 
-[node name="OpponentPlayerDeckPileLabel" type="Label" parent="OpponentPiles/VBoxContainer/DeckPile"]
+[node name="OpponentPlayerDeckPileLabel" type="Label" parent="OpponentPlayer/OpponentPiles/VBoxContainer/DeckPile"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -66,7 +72,7 @@ text = "Deck"
 align = 1
 valign = 1
 
-[node name="HandPile" type="ColorRect" parent="OpponentPiles/VBoxContainer"]
+[node name="HandPile" type="ColorRect" parent="OpponentPlayer/OpponentPiles/VBoxContainer"]
 margin_top = 101.0
 margin_right = 1080.0
 margin_bottom = 198.0
@@ -75,7 +81,7 @@ size_flags_vertical = 3
 script = ExtResource( 3 )
 pile_label_path = NodePath("OpponentPlayerHandPileLabel")
 
-[node name="OpponentPlayerHandPileLabel" type="Label" parent="OpponentPiles/VBoxContainer/HandPile"]
+[node name="OpponentPlayerHandPileLabel" type="Label" parent="OpponentPlayer/OpponentPiles/VBoxContainer/HandPile"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -91,7 +97,7 @@ text = "Hand"
 align = 1
 valign = 1
 
-[node name="DiscardPile" type="ColorRect" parent="OpponentPiles/VBoxContainer"]
+[node name="DiscardPile" type="ColorRect" parent="OpponentPlayer/OpponentPiles/VBoxContainer"]
 margin_top = 202.0
 margin_right = 1080.0
 margin_bottom = 300.0
@@ -101,7 +107,7 @@ color = Color( 0.32549, 0.32549, 0.32549, 1 )
 script = ExtResource( 6 )
 pile_label_path = NodePath("OpponentPlayerDiscardPileLabel")
 
-[node name="OpponentPlayerDiscardPileLabel" type="Label" parent="OpponentPiles/VBoxContainer/DiscardPile"]
+[node name="OpponentPlayerDiscardPileLabel" type="Label" parent="OpponentPlayer/OpponentPiles/VBoxContainer/DiscardPile"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -117,13 +123,33 @@ text = "Discard"
 align = 1
 valign = 1
 
+[node name="OpponentLoadButton" type="Button" parent="OpponentPlayer"]
+margin_left = 3.0
+margin_top = 483.0
+margin_right = 416.0
+margin_bottom = 583.0
+rect_min_size = Vector2( 400, 100 )
+custom_fonts/font = SubResource( 1 )
+text = "OppLoad"
+
+[node name="OppPlayerPassButton" type="Button" parent="OpponentPlayer"]
+visible = false
+margin_left = 343.0
+margin_top = 749.0
+margin_right = 743.0
+margin_bottom = 849.0
+rect_min_size = Vector2( 400, 100 )
+theme = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "OPPPASS"
+
 [node name="ActivePlayer" type="Node" parent="."]
 
 [node name="ActivePlayerPiles" type="Node" parent="ActivePlayer"]
 script = ExtResource( 7 )
 deck_path = NodePath("VBoxContainer/DeckPile")
 hand_path = NodePath("VBoxContainer/HandPile")
-discard_pile_path = NodePath("../../OpponentPiles/VBoxContainer/DiscardPile")
+discard_pile_path = NodePath("../../OpponentPlayer/OpponentPiles/VBoxContainer/DiscardPile")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ActivePlayer/ActivePlayerPiles"]
 anchor_left = 0.5
@@ -208,8 +234,10 @@ valign = 1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -68.0
-margin_bottom = 344.0
+margin_left = -3.0
+margin_top = 200.0
+margin_right = -3.0
+margin_bottom = 612.0
 
 [node name="LoadButton" type="Button" parent="ActivePlayer/GridContainer"]
 margin_right = 400.0
@@ -242,24 +270,46 @@ rect_min_size = Vector2( 400, 100 )
 custom_fonts/font = SubResource( 1 )
 text = "Strike!"
 
+[node name="ActivePlayerPassButton" type="Button" parent="ActivePlayer"]
+visible = false
+margin_left = 341.0
+margin_top = 861.0
+margin_right = 741.0
+margin_bottom = 961.0
+rect_min_size = Vector2( 400, 100 )
+custom_fonts/font = SubResource( 1 )
+text = "PASS"
+
 [node name="ResolveStack" type="Button" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -301.0
-margin_top = 687.0
-margin_right = 257.0
-margin_bottom = 787.0
+margin_left = -50.0
+margin_top = 1485.0
+margin_right = 508.0
+margin_bottom = 1585.0
 rect_min_size = Vector2( 500, 100 )
 custom_fonts/font = ExtResource( 2 )
 text = "Resolve Stack"
 
 [node name="StackSizeLabel" type="Label" parent="."]
-margin_left = 247.0
-margin_top = 625.0
-margin_right = 703.0
-margin_bottom = 673.0
+margin_left = 17.0
+margin_top = 378.0
+margin_right = 473.0
+margin_bottom = 426.0
 custom_fonts/font = ExtResource( 2 )
 text = "Stack Size: "
 
+[node name="TurnCountLabel" type="Label" parent="."]
+margin_left = 17.0
+margin_top = 307.0
+margin_right = 473.0
+margin_bottom = 355.0
+custom_fonts/font = ExtResource( 2 )
+text = "Turn:"
+
+[connection signal="pressed" from="OpponentPlayer/OpponentLoadButton" to="." method="_on_OppLoadButton_pressed"]
+[connection signal="pressed" from="OpponentPlayer/OppPlayerPassButton" to="." method="_on_OppPlayerPassButton_pressed"]
 [connection signal="pressed" from="ActivePlayer/GridContainer/LoadButton" to="." method="_on_LoadButton_pressed"]
+[connection signal="pressed" from="ActivePlayer/ActivePlayerPassButton" to="." method="_on_ActivePlayerPassButton_pressed"]
 [connection signal="pressed" from="ResolveStack" to="." method="_on_ResolveStack_pressed"]

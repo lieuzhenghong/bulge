@@ -17,3 +17,9 @@ func pop():
 			trigger.actor,
 			trigger.target
 		)
+		
+func class_in_stack(Class):
+	for item in stack:
+		if item is Class:
+			return true
+	return false
