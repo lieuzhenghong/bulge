@@ -1,6 +1,6 @@
 class_name Piles extends Node
 
-signal load_successful(type, actor, target)
+signal trigger_resolved(type, actor, target)
 
 export(NodePath) var deck_path
 export(NodePath) var hand_path
@@ -12,7 +12,7 @@ onready var hand = get_node(hand_path)
 onready var discard_pile = get_node(discard_pile_path)
 
 func _ready():
-	Stack.connect("trigger_resolved", self, "_on_Trigger_resolved")
+	var _error = Stack.connect("trigger_popped", self, "_on_Trigger_popped")
 
 func load_card():
 	print(deck)
@@ -31,10 +31,10 @@ static func sum(array):
 		array_sum += array[i]
 	return array_sum	
 
-func _on_Trigger_resolved(type, actor, target):
+func _on_Trigger_popped(type, actor, target):
 	print("Trigger of type %s from actor %s targeting %s resolved!" % 
 	[type, actor, target])
 	if type == "Load" and target == relevant_player:
 		var loaded = load_card()
 		if loaded != Globals.DECKPILE_EMPTY:
-			emit_signal("load_successful", relevant_player, relevant_player)
+			emit_signal("trigger_resolved", "Load", relevant_player, relevant_player)

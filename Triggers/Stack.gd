@@ -1,6 +1,6 @@
 extends Node
 
-signal trigger_resolved(type, actor, target)
+signal trigger_popped(type, actor, target)
 
 var stack = []
 
@@ -12,7 +12,7 @@ func pop():
 	if trigger == null:
 		pass
 	else:
-		emit_signal("trigger_resolved", 
+		emit_signal("trigger_popped", 
 			trigger.type,
 			trigger.actor,
 			trigger.target

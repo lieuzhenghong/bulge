@@ -262,5 +262,4 @@ custom_fonts/font = ExtResource( 2 )
 text = "Stack Size: "
 
 [connection signal="pressed" from="ActivePlayer/GridContainer/LoadButton" to="." method="_on_LoadButton_pressed"]
-[connection signal="pressed" from="ActivePlayer/GridContainer/LoadButton" to="ActivePlayer/ActivePlayerPiles" method="_on_LoadButton_pressed"]
 [connection signal="pressed" from="ResolveStack" to="." method="_on_ResolveStack_pressed"]
