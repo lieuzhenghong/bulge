@@ -9,15 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Helpers",
-"language": "GDScript",
-"path": "res://Helpers.gd"
-}, {
 "base": "Trigger",
 "class": "LoadTrigger",
 "language": "GDScript",
 "path": "res://Triggers/LoadTrigger.gd"
+}, {
+"base": "Reference",
+"class": "Mana",
+"language": "GDScript",
+"path": "res://Piles/Mana.gd"
+}, {
+"base": "Node",
+"class": "Pile",
+"language": "GDScript",
+"path": "res://Pile.gd"
 }, {
 "base": "Node",
 "class": "Piles",
@@ -30,8 +35,9 @@ _global_script_classes=[ {
 "path": "res://Triggers/Trigger.gd"
 } ]
 _global_script_class_icons={
-"Helpers": "",
 "LoadTrigger": "",
+"Mana": "",
+"Pile": "",
 "Piles": "",
 "Trigger": ""
 }

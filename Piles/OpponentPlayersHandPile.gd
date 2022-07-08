@@ -7,4 +7,4 @@ func str():
 	return PoolStringArray(contents).join("")
 	
 func _process(_delta):
-	label.text = str(sum(contents))
+	label.text = str(.hsize())

@@ -15,15 +15,11 @@ func _ready():
 	var _error = Stack.connect("trigger_popped", self, "_on_Trigger_popped")
 
 func load_card():
-	print(deck)
-	var loaded = deck.load()
-	print(loaded)
-	print(Globals.DECKPILE_EMPTY)
-	if loaded == Globals.DECKPILE_EMPTY:
-		print("out of cards!")
-		return loaded
-	hand.add(loaded)
-	return loaded
+	var card = deck.give()
+	if card == null:
+		print("Out of cards")
+	else:
+		hand.add(card)
 	
 static func sum(array):
 	var array_sum = 0

@@ -4,35 +4,31 @@ var turn = 0
 var current_phase = 0
 var priority = Globals.PLAYER_ONE_ID
 var has_passed = []
+var action_counts = [0, 0]
 
-# FIXME
-# Not general enough solution.
-# Also bugged because you only want to disallow two loads of one player
-# Opponent LoadTriggers are OK. 
-# Will fail if opponent has a "During your opponent's action phase, Load" kinda 
-# thing
 func _on_LoadButton_pressed():
 	# Push a LoadTrigger for player one onto the stack
 	if turn % 2 == Globals.PLAYER_ONE_ID and \
 	priority == Globals.PLAYER_ONE_ID and \
-	current_phase == 0 and not Stack.class_in_stack(LoadTrigger):
+	current_phase == 0 and action_counts[Globals.PLAYER_ONE_ID] == 0:
 		Stack.push(LoadTrigger.new(
 			Globals.PLAYER_ONE_ID, 
 			Globals.PLAYER_ONE_ID)
 		)
 		# FIXME Hardcode this for now
+		action_counts[Globals.PLAYER_ONE_ID] += 1
 		has_passed = [Globals.PLAYER_ONE_ID, Globals.PLAYER_TWO_ID]
 
-# FIXME
 func _on_OppLoadButton_pressed():
 	if turn % 2 == Globals.PLAYER_TWO_ID and \
 	priority == Globals.PLAYER_TWO_ID and \
-	current_phase == 0 and not Stack.class_in_stack(LoadTrigger):
+	current_phase == 0 and action_counts[Globals.PLAYER_TWO_ID] == 0:
 		Stack.push(LoadTrigger.new(
 		Globals.PLAYER_TWO_ID, 
 		Globals.PLAYER_TWO_ID)
 		)
 		# FIXME Hardcode this for now
+		action_counts[Globals.PLAYER_TWO_ID] += 1
 		has_passed = [Globals.PLAYER_ONE_ID, Globals.PLAYER_TWO_ID]
 
 func _on_OppPlayerPassButton_pressed():
@@ -53,13 +49,12 @@ func _on_ActivePlayerPassButton_pressed():
 # When we move to a new phase:
 # - Clear all passes.
 # - The player whose turn it is gains priority.
-# 
-
 func next_phase():
 	# We need to make this increment the turn too.
 	if current_phase == Globals.phases.size() - 1:
 		current_phase = 0
 		turn += 1
+		action_counts = [0, 0]
 	else:
 		current_phase += 1
 	has_passed = []
