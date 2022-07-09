@@ -19,3 +19,4 @@ class_name Trigger extends Node
 var type = null
 var actor = null
 var target = null
+var data = null

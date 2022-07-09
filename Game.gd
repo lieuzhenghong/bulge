@@ -44,6 +44,9 @@ func _on_ActivePlayerPassButton_pressed():
 		has_passed.push_back(Globals.PLAYER_ONE_ID)
 		
 
+
+
+
 # We move to a new phase when both players have passed and the stack is empty.
 
 # When we move to a new phase:
@@ -67,3 +70,7 @@ func _process(_delta):
 		while Stack.stack.size() > 0:
 			Stack.pop()
 		next_phase()
+
+
+func _on_ConfirmButton_pressed():
+	pass # Replace with function body.

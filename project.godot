@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Piles/Piles.gd"
 }, {
+"base": "Trigger",
+"class": "SeekTrigger",
+"language": "GDScript",
+"path": "res://Triggers/SeekTrigger.gd"
+}, {
 "base": "Node",
 "class": "Trigger",
 "language": "GDScript",
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "Mana": "",
 "Pile": "",
 "Piles": "",
+"SeekTrigger": "",
 "Trigger": ""
 }
 

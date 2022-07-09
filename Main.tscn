@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://addons/ridiculous_coding/font.tres" type="DynamicFont" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Piles/ActivePlayersHandPile.gd" type="Script" id=8]
 [ext_resource path="res://assets/bg.png" type="Texture" id=9]
 [ext_resource path="res://ManaButton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://SeekButton.gd" type="Script" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -281,6 +282,35 @@ margin_bottom = 204.0
 rect_min_size = Vector2( 400, 100 )
 custom_fonts/font = SubResource( 1 )
 text = "Seek"
+script = ExtResource( 11 )
+
+[node name="SeekPopup" type="ColorRect" parent="ActivePlayer/GridContainer/SeekButton"]
+margin_left = 425.0
+margin_top = -268.0
+margin_right = 1008.0
+margin_bottom = 95.0
+
+[node name="SeekColour" type="ColorRect" parent="ActivePlayer/GridContainer/SeekButton/SeekPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -134.0
+margin_top = -117.5
+margin_right = 134.0
+margin_bottom = 117.5
+color = Color( 0.317647, 0.0117647, 0.0117647, 1 )
+
+[node name="ConfirmButton" type="Button" parent="ActivePlayer/GridContainer/SeekButton/SeekPopup"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -291.5
+margin_top = -54.0
+margin_right = 291.5
+custom_fonts/font = ExtResource( 2 )
+text = "Confirm"
 
 [node name="SurfaceButton" type="Button" parent="ActivePlayer/GridContainer"]
 margin_top = 208.0
@@ -339,5 +369,7 @@ text = "Turn:"
 [connection signal="pressed" from="OpponentPlayer/OpponentLoadButton" to="." method="_on_OppLoadButton_pressed"]
 [connection signal="pressed" from="OpponentPlayer/OppPlayerPassButton" to="." method="_on_OppPlayerPassButton_pressed"]
 [connection signal="pressed" from="ActivePlayer/GridContainer/LoadButton" to="." method="_on_LoadButton_pressed"]
+[connection signal="pressed" from="ActivePlayer/GridContainer/SeekButton" to="ActivePlayer/GridContainer/SeekButton" method="_on_SeekButton_pressed"]
+[connection signal="pressed" from="ActivePlayer/GridContainer/SeekButton/SeekPopup/ConfirmButton" to="ActivePlayer/GridContainer/SeekButton" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="ActivePlayer/ActivePlayerPassButton" to="." method="_on_ActivePlayerPassButton_pressed"]
 [connection signal="pressed" from="ResolveStack" to="." method="_on_ResolveStack_pressed"]
