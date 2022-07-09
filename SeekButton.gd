@@ -1,10 +1,6 @@
 extends Button
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+signal confirmed
 var seek_colour = null
 
 # Called when the node enters the scene tree for the first time.
@@ -15,6 +11,7 @@ func _ready():
 		self, 
 		"_on_RedManaButton_pressed"
 	)
+	
 	
 func _on_SeekButton_pressed():
 	if $SeekPopup.visible:
@@ -30,4 +27,4 @@ func _on_RedManaButton_pressed():
 
 
 func _on_ConfirmButton_pressed():
-	pass
+	emit_signal("confirmed", seek_colour)

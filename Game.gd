@@ -6,6 +6,9 @@ var priority = Globals.PLAYER_ONE_ID
 var has_passed = []
 var action_counts = [0, 0]
 
+func _ready():
+	$ActivePlayer/GridContainer/SeekButton.connect("confirmed", self, "_on_seekConfirmButtonPressed")
+
 func _on_LoadButton_pressed():
 	# Push a LoadTrigger for player one onto the stack
 	if turn % 2 == Globals.PLAYER_ONE_ID and \
@@ -44,7 +47,8 @@ func _on_ActivePlayerPassButton_pressed():
 		has_passed.push_back(Globals.PLAYER_ONE_ID)
 		
 
-
+func _on_seekConfirmButtonPressed(colour):
+	print("game object heard seek confirm %s" % colour)
 
 
 # We move to a new phase when both players have passed and the stack is empty.
@@ -72,5 +76,3 @@ func _process(_delta):
 		next_phase()
 
 
-func _on_ConfirmButton_pressed():
-	pass # Replace with function body.
