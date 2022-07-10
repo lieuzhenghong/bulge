@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Ability",
+"language": "GDScript",
+"path": "res://Ability.gd"
+}, {
+"base": "Ability",
+"class": "LoadAbility",
+"language": "GDScript",
+"path": "res://LoadAbility.gd"
+}, {
 "base": "Trigger",
 "class": "LoadTrigger",
 "language": "GDScript",
@@ -29,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Piles/Piles.gd"
 }, {
+"base": "Ability",
+"class": "SeekAbility",
+"language": "GDScript",
+"path": "res://SeekAbility.gd"
+}, {
 "base": "Trigger",
 "class": "SeekTrigger",
 "language": "GDScript",
@@ -40,10 +55,13 @@ _global_script_classes=[ {
 "path": "res://Triggers/Trigger.gd"
 } ]
 _global_script_class_icons={
+"Ability": "",
+"LoadAbility": "",
 "LoadTrigger": "",
 "Mana": "",
 "Pile": "",
 "Piles": "",
+"SeekAbility": "",
 "SeekTrigger": "",
 "Trigger": ""
 }

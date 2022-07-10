@@ -1,78 +1,69 @@
 extends Node
 
 var turn = 0
-var current_phase = 0
-var priority = Globals.PLAYER_ONE_ID
-var has_passed = []
+
+var phases = [
+	"P1Start",
+	"P1Main",
+	"P1End",
+	"P2Start",
+	"P2Main",
+	"P2End",
+	"GameEnd",
+]
+
 var action_counts = [0, 0]
+
+var current_phase = phases[0]
+
+export(NodePath) var active_player
+export(NodePath) var opponent_player
+
+signal SeekResponseConfirmed
 
 func _ready():
 	$ActivePlayer/GridContainer/SeekButton.connect("confirmed", self, "_on_seekConfirmButtonPressed")
 
 func _on_LoadButton_pressed():
-	# Push a LoadTrigger for player one onto the stack
-	if turn % 2 == Globals.PLAYER_ONE_ID and \
-	priority == Globals.PLAYER_ONE_ID and \
-	current_phase == 0 and action_counts[Globals.PLAYER_ONE_ID] == 0:
-		Stack.push(LoadTrigger.new(
-			Globals.PLAYER_ONE_ID, 
-			Globals.PLAYER_ONE_ID)
-		)
-		# FIXME Hardcode this for now
+	if current_phase != "P1Main" or action_counts[0] > 0:
+		pass
+	else:
+		$ActivePlayer/ActivePlayerPiles.load_card()
 		action_counts[Globals.PLAYER_ONE_ID] += 1
-		has_passed = [Globals.PLAYER_ONE_ID, Globals.PLAYER_TWO_ID]
-
-func _on_OppLoadButton_pressed():
-	if turn % 2 == Globals.PLAYER_TWO_ID and \
-	priority == Globals.PLAYER_TWO_ID and \
-	current_phase == 0 and action_counts[Globals.PLAYER_TWO_ID] == 0:
-		Stack.push(LoadTrigger.new(
-		Globals.PLAYER_TWO_ID, 
-		Globals.PLAYER_TWO_ID)
-		)
-		# FIXME Hardcode this for now
-		action_counts[Globals.PLAYER_TWO_ID] += 1
-		has_passed = [Globals.PLAYER_ONE_ID, Globals.PLAYER_TWO_ID]
-
-func _on_OppPlayerPassButton_pressed():
-	if Globals.PLAYER_TWO_ID in has_passed:
+		change_phase("P1End")
+		
+func _on_seekConfirmButtonPressed(colour):
+	# Is this the only check? Do we not have to check if 
+	# the player is seeking with valid colours?
+	if current_phase != "P1Main" or action_counts[0] > 0:
 		pass
 	else:
-		has_passed.push_back(Globals.PLAYER_TWO_ID)
+		var card = active_player.discard()
+		#emit_signal("SeekResponseRequested", card)
+		# var cards = yield(self, "SeekResponseConfirmed")
+		var cards = requestSeekResponse(card, opponent_player)
+		for targetCard in cards:
+			self.target.discard(targetCard)
+		action_counts[Globals.PLAYER_ONE_ID] += 1
+		change_phase("P1End")
 
-func _on_ActivePlayerPassButton_pressed():
-	if Globals.PLAYER_ONE_ID in has_passed:
-		pass
+func requestSeekResponse(card, target_player):
+	if target_player == active_player:
+		$ActivePlayer/SeekResponsePopup.show()
+		var cards = yield(self, "SeekResponseConfirmed")
 	else:
-		has_passed.push_back(Globals.PLAYER_ONE_ID)
+		# discard random 2 cards
+		$OpponentPlayer/OpponentPiles.discard_random_card()
+		$OpponentPlayer/OpponentPiles.discard_random_card()
+		change_phase("P1End")
 		
 
-func _on_seekConfirmButtonPressed(colour):
-	print("game object heard seek confirm %s" % colour)
+func change_phase(phase):
+	assert(phase in phases)
+	current_phase = phase
+	return current_phase
 
 
-# We move to a new phase when both players have passed and the stack is empty.
-
-# When we move to a new phase:
-# - Clear all passes.
-# - The player whose turn it is gains priority.
-func next_phase():
-	# We need to make this increment the turn too.
-	if current_phase == Globals.phases.size() - 1:
-		current_phase = 0
-		turn += 1
-		action_counts = [0, 0]
-	else:
-		current_phase += 1
-	has_passed = []
-	priority = Globals.PLAYER_TWO_ID if (turn % 2) == 1 else Globals.PLAYER_ONE_ID
-
-func _process(_delta):
-	$StackSizeLabel.text = "Stack Size: %s" % Stack.stack.size()
-	$TurnCountLabel.text = "Turn Count: %s" % turn
-	if has_passed.size() == 2:
-		while Stack.stack.size() > 0:
-			Stack.pop()
-		next_phase()
-
-
+func _on_SeekResponseConfirmButton_pressed():
+	var cards = $ActivePlayer/SeekResponsePopup
+	emit_signal("SeekResponseConfirmed", cards)

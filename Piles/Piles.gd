@@ -18,8 +18,23 @@ func load_card():
 	var card = deck.give()
 	if card == null:
 		print("Out of cards")
+		return null
 	else:
 		hand.add(card)
+		return card
+	
+func discard_card():
+	var card = hand.give()
+	if card == null:
+		print("Out of cards")
+		return null
+	else:
+		discard_pile.add(card)
+		return card
+	
+func discard_random_card():
+	hand.shuffle()
+	discard_card()
 	
 static func sum(array):
 	var array_sum = 0

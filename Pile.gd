@@ -11,6 +11,9 @@ func add(element):
 
 func hsize():
 	return contents.size()
+	
+func shuffle() -> void:
+	contents.shuffle()
 
 func count(colour):
 	var sum = 0
