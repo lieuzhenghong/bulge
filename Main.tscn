@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://addons/ridiculous_coding/font.tres" type="DynamicFont" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://SeekButton.gd" type="Script" id=11]
 [ext_resource path="res://Player.gd" type="Script" id=12]
 [ext_resource path="res://SeekResponsePopup.gd" type="Script" id=13]
+[ext_resource path="res://ActivePlayer.gd" type="Script" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -24,6 +25,8 @@ font_data = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+active_player_path = NodePath("ActivePlayer")
+opponent_player_path = NodePath("OpponentPlayer")
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 538, 1057 )
@@ -150,7 +153,7 @@ custom_fonts/font = SubResource( 1 )
 text = "OPPPASS"
 
 [node name="ActivePlayer" type="Node" parent="."]
-script = ExtResource( 12 )
+script = ExtResource( 14 )
 piles_path = NodePath("ActivePlayerPiles")
 
 [node name="ActivePlayerPiles" type="Node" parent="ActivePlayer"]
@@ -345,6 +348,7 @@ custom_fonts/font = SubResource( 1 )
 text = "PASS"
 
 [node name="SeekResponsePopup" type="ColorRect" parent="ActivePlayer"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -424,7 +428,7 @@ text = "Turn:"
 
 [connection signal="pressed" from="OpponentPlayer/OpponentLoadButton" to="." method="_on_OppLoadButton_pressed"]
 [connection signal="pressed" from="OpponentPlayer/OppPlayerPassButton" to="." method="_on_OppPlayerPassButton_pressed"]
-[connection signal="pressed" from="ActivePlayer/GridContainer/LoadButton" to="." method="_on_LoadButton_pressed"]
+[connection signal="pressed" from="ActivePlayer/GridContainer/LoadButton" to="ActivePlayer" method="_on_LoadButton_pressed"]
 [connection signal="pressed" from="ActivePlayer/GridContainer/SeekButton" to="ActivePlayer/GridContainer/SeekButton" method="_on_SeekButton_pressed"]
 [connection signal="pressed" from="ActivePlayer/GridContainer/SeekButton/SeekPopup/ConfirmButton" to="ActivePlayer/GridContainer/SeekButton" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="ActivePlayer/ActivePlayerPassButton" to="." method="_on_ActivePlayerPassButton_pressed"]

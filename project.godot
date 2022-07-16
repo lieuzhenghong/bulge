@@ -9,20 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "ActionA",
+"language": "GDScript",
+"path": "res://Action.gd"
+}, {
 "base": "Node",
-"class": "Ability",
+"class": "Game",
 "language": "GDScript",
-"path": "res://Ability.gd"
-}, {
-"base": "Ability",
-"class": "LoadAbility",
-"language": "GDScript",
-"path": "res://LoadAbility.gd"
-}, {
-"base": "Trigger",
-"class": "LoadTrigger",
-"language": "GDScript",
-"path": "res://Triggers/LoadTrigger.gd"
+"path": "res://Game.gd"
 }, {
 "base": "Reference",
 "class": "Mana",
@@ -39,31 +34,18 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Piles/Piles.gd"
 }, {
-"base": "Ability",
-"class": "SeekAbility",
-"language": "GDScript",
-"path": "res://SeekAbility.gd"
-}, {
-"base": "Trigger",
-"class": "SeekTrigger",
-"language": "GDScript",
-"path": "res://Triggers/SeekTrigger.gd"
-}, {
 "base": "Node",
-"class": "Trigger",
+"class": "Player",
 "language": "GDScript",
-"path": "res://Triggers/Trigger.gd"
+"path": "res://Player.gd"
 } ]
 _global_script_class_icons={
-"Ability": "",
-"LoadAbility": "",
-"LoadTrigger": "",
+"ActionA": "",
+"Game": "",
 "Mana": "",
 "Pile": "",
 "Piles": "",
-"SeekAbility": "",
-"SeekTrigger": "",
-"Trigger": ""
+"Player": ""
 }
 
 [application]
@@ -75,7 +57,6 @@ config/icon="res://assets/icon.png"
 [autoload]
 
 Globals="*res://Globals.gd"
-Stack="*res://Stack.tscn"
 
 [display]
 

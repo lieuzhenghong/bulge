@@ -12,7 +12,7 @@ onready var hand = get_node(hand_path)
 onready var discard_pile = get_node(discard_pile_path)
 
 func _ready():
-	var _error = Stack.connect("trigger_popped", self, "_on_Trigger_popped")
+	pass
 
 func load_card():
 	var card = deck.give()
